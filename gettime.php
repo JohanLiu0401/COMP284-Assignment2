@@ -23,7 +23,6 @@ $stmt->execute(array(":class" => $q));
 
 //According to selected session, fetch the time information and send to the client.
 echo<<<FORMTWOSTART
-<form name="timeForm" method="post">
     <div class="select">
         <span class="arr"></span>
         <select name="time">
@@ -37,7 +36,6 @@ while($row = $stmt->fetch()) {
 echo<<<FORMTWOEND
 </select>
     </div>
-</form>
 FORMTWOEND;
 
 }

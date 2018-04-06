@@ -232,10 +232,17 @@ function isNameValid() {
         $GLOBALS['information'] .= "Name can not be empty !\n";
         return false;
     }
-    elseif (!preg_match("/^['a-zA-Z][a-zA-Z' -]+/", $_POST["name"])) {
+    elseif (!preg_match("/^['a-zA-Z][a-zA-Z' -]+/", $_POST["name"]) || preg_match("/'{2,}|-{2,}/", $_POST["name"])) {
         $GLOBALS['information'] .= "Name is not valid !\n";
         return false;
     }
+
+    //Replace the ' to '' in name.
+    $name = preg_replace("/\'/", "''", $_POST["name"]);
+    if($name) {
+        $_POST["name"] = $name;
+    }
+    
     return true;
 }
 
@@ -245,7 +252,7 @@ function isEmailValid() {
         $GLOBALS['information'] .= "Email can not be empty !\n";
         return false;
     }
-    elseif (!preg_match("/^[a-zA-Z\.-]+@[a-zA-Z\.-]+/", $_POST["email"]) || preg_match("/'{2,}|-{2,}/", $_POST["email"])) {
+    elseif (!preg_match("/^[a-zA-Z\.-]+@[a-zA-Z\.-]+/", $_POST["email"])) {
         $GLOBALS['information'] .= "Email is not valid !\n";
         return false;
     }
